@@ -1,0 +1,67 @@
+---
+title: "bobtail_interactions_pilot"
+author: "DEKERLE_Louis"
+date: "2026-04-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r LIBRARIES}
+
+library(igraph)
+
+```
+
+```{r DATA}
+
+adj_matrix = as.matrix(read.csv("interaction_matrix.csv", sep =";", header = FALSE))
+
+# remove unidentified individuals 
+adj_matrix_ID = adj_matrix[-9,-9]
+
+```
+
+
+```{r graph of interactions}
+
+g <- make_empty_graph()
+
+#create the graph
+g <- graph_from_adjacency_matrix(
+    adj_matrix_ID,
+    mode = c("undirected"),
+    weighted = TRUE,
+    diag = F,
+    add.colnames = NULL,
+    add.rownames = FALSE
+)
+
+# dispose the vertex in cicrle 
+layout <-layout_in_circle(g)
+
+# plot 
+plot(g, layout = layout, main = "Working title", edge.width = E(g)$weight*3)# E(g) containes the attributes of the edges. We multiply the weight by 3 to increase the contrast between the width of the lines
+
+```
+```{r Structural properties without non ID}
+
+#binary degrees 
+degree(g)
+
+# densities 
+edge_density(g, loops = FALSE) # existing edges / possible edges
+
+#weighted degrees 
+strength(
+  g,
+  vids = V(g), #The vertices for which the strength will be calculated
+  loops = TRUE, #Logical; whether the loop edges are also counted. (here none)
+  weights = NULL # use the default weight edge attribute in the matrix 
+)
+
+```
+
