@@ -9,4 +9,21 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r LIBRARIES}
+
+library(ggplot2)
+
+```
+
+```{r DATA}
+
+data_bob = read.csv("metadata.csv", sep =";", header = TRUE)
+
+```
+
+```{r exploratory graphs}
+
+
+
+```
 
