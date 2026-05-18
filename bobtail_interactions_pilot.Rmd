@@ -18,11 +18,16 @@ library(igraph)
 
 ```{r DATA}
 
+# First session 
 adj_matrix = as.matrix(read.csv("interaction_matrix.csv", sep =";", header = FALSE))
 
 # remove unidentified individuals 
 adj_matrix_ID = adj_matrix[-9,-9]
 
+# Second session
+adj_matrix2 = as.matrix(read.csv("interaction_matrix2.csv", sep =";", header = FALSE))
+
+adj_matrix_all = adj_matrix_ID + adj_matrix2
 ```
 
 
@@ -32,7 +37,7 @@ g <- make_empty_graph()
 
 #create the graph
 g <- graph_from_adjacency_matrix(
-    adj_matrix_ID,
+    adj_matrix_all,
     mode = c("undirected"),
     weighted = TRUE,
     diag = F,
@@ -44,7 +49,7 @@ g <- graph_from_adjacency_matrix(
 layout <-layout_in_circle(g)
 
 # plot 
-plot(g, layout = layout, main = "Working title", edge.width = E(g)$weight*3)# E(g) containes the attributes of the edges. We multiply the weight by 3 to increase the contrast between the width of the lines
+plot(g, layout = layout, main = "Working title", edge.width = E(g)$weight*0.6)# E(g) containes the attributes of the edges. We multiply the weight by 3 to increase the contrast between the width of the lines
 
 ```
 ```{r Structural properties without non ID}

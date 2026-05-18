@@ -11,19 +11,108 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r LIBRARIES}
 
+library(dplyr)
 library(ggplot2)
-
+library(lubridate)
 ```
 
 ```{r DATA}
 
 data_bob = read.csv("metadata.csv", sep =";", header = TRUE)
 
-```
-
-```{r exploratory graphs}
-
-
 
 ```
 
+```{r sum of observations per day}
+
+# create a column with "1" everywhere to be able to sum le lines 
+data_bob$count = 1 
+
+# plot
+ggplot(data_bob, aes(x = date, y = count)) +
+  geom_col()
+```
+
+```{r sum of observations per hour}
+
+# create a column with "1" everywhere to be able to sum le lines 
+data_bob$count = 1 
+
+
+data_bob$time = as.POSIXct(data_bob$time, format = "%H:%M")
+data_bob$hour = hour(data_bob$time)
+
+# plot  
+ggplot(data_bob, aes(x = time, y = count)) +
+  geom_col() +
+  xlab("Time of trapping") +
+  ylab("Number of bobtails on all pictures")
+
+# plot  
+ggplot(data_bob, aes(x = hour, y = count)) +
+  geom_col() +
+  xlab("Hour of trapping") +
+  ylab("Number of bobtails on all pictures")
+```
+
+```{r sum of observations across camera temperatures}
+
+# create a column with "1" everywhere to be able to sum le lines 
+data_bob$count = 1 
+
+# plot  
+ggplot(data_bob, aes(x = temperature, y = count)) +
+  geom_col() +
+  xlab("Camera temperature") +
+  ylab("Number of bobtails on all pictures")
+
+```
+
+```{r sum of observations per individuals}
+
+# create a column with "1" everywhere to be able to sum le lines 
+data_bob$count = 1 
+
+# plot  
+ggplot(data_bob, aes(x = individual, y = count)) +
+  geom_col() +
+  xlab("Individual") +
+  ylab("Number of bobtails on all pictures")
+
+```
+
+```{r sum of observations per camera}
+
+# create a column with "1" everywhere to be able to sum le lines 
+data_bob$count = 1 
+
+# plot  
+ggplot(data_bob, aes(x = camera, y = count)) +
+  geom_col() +
+  xlab("camera") +
+  ylab("Number of bobtails on all pictures")
+
+```
+
+```{r usm of observation per individual and camera}
+
+# create a column with "1" everywhere to be able to sum le lines 
+data_bob$count = 1 
+
+ggplot(data_bob, aes(x = individual, y = count, fill = camera)) +
+  geom_col() +
+  xlab("Individual") +
+  ylab("Number of bobtails on all pictures")
+```
+```{r sum of observations per max air temperature each day}
+
+# create a column with "1" everywhere to be able to sum le lines 
+data_bob$count = 1 
+
+# plot 
+ggplot(data_bob, aes(x = max_temp_atmo, y = count)) +
+  geom_col() +
+  xlab("Max air temperatures each day") +
+  ylab("Number of bobtails on all pictures")
+
+```
