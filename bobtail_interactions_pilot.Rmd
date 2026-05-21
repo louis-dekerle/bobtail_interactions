@@ -49,7 +49,7 @@ g <- graph_from_adjacency_matrix(
 layout <-layout_in_circle(g)
 
 # plot 
-plot(g, layout = layout, main = "Working title", edge.width = E(g)$weight*0.6)# E(g) containes the attributes of the edges. We multiply the weight by 3 to increase the contrast between the width of the lines
+plot(g, layout = layout, main = "Working title", edge.width = E(g)$weight*0.6)# E(g) containes the attributes of the edges. We multiply the weight by 0.6 to increase the contrast between the width of the lines
 
 ```
 ```{r Structural properties without non ID}
