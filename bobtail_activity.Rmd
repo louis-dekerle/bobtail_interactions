@@ -18,7 +18,7 @@ library(lubridate)
 
 ```{r DATA}
 
-data_bob = read.csv("metadata.csv", sep =";", header = TRUE)
+data_bob = read.csv("metadata2.csv", sep =";", header = TRUE)
 
 
 ```
