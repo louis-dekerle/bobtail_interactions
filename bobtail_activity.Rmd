@@ -48,8 +48,9 @@ ggplot(data_bob, aes(x = time, y = count)) +
   xlab("Time of trapping") +
   ylab("Number of bobtails on all pictures")
 
+
 # plot  
-ggplot(data_bob, aes(x = hour, y = count)) +
+ggplot(data_bob, aes(x = factor(hour), y = count)) +
   geom_col() +
   xlab("Hour of trapping") +
   ylab("Number of bobtails on all pictures")
@@ -68,29 +69,18 @@ ggplot(data_bob, aes(x = temperature, y = count)) +
 
 ```
 
-```{r sum of observations per individuals}
+
+```{r sum of observations per camera and individual}
 
 # create a column with "1" everywhere to be able to sum le lines 
 data_bob$count = 1 
 
 # plot  
-ggplot(data_bob, aes(x = individual, y = count)) +
+ggplot(data_bob, aes(x = camera, y = count, fill = individual)) +
   geom_col() +
-  xlab("Individual") +
-  ylab("Number of bobtails on all pictures")
-
-```
-
-```{r sum of observations per camera}
-
-# create a column with "1" everywhere to be able to sum le lines 
-data_bob$count = 1 
-
-# plot  
-ggplot(data_bob, aes(x = camera, y = count)) +
-  geom_col() +
-  xlab("camera") +
-  ylab("Number of bobtails on all pictures")
+  xlab("Camera") +
+  ylab("Number of bobtails on all pictures")+
+  scale_fill_brewer(palette="BrBG")
 
 ```
 
@@ -102,7 +92,8 @@ data_bob$count = 1
 ggplot(data_bob, aes(x = individual, y = count, fill = camera)) +
   geom_col() +
   xlab("Individual") +
-  ylab("Number of bobtails on all pictures")
+  ylab("Number of bobtails on all pictures")+
+  scale_fill_brewer(palette="BrBG")
 ```
 ```{r sum of observations per max air temperature each day}
 
