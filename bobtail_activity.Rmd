@@ -18,7 +18,7 @@ library(lubridate)
 
 ```{r DATA}
 
-data_bob = read.csv("metadata2.csv", sep =";", header = TRUE) # dataset of the metadate collected from the camera traps. 
+data_bob = read.csv("DATA/activity/metadata2.csv", sep =";", header = TRUE) # dataset of the metadata collected from the camera traps. 
 
 # create a column with "1" everywhere to be able to sum the lines 
 data_bob$count = 1 
