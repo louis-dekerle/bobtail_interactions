@@ -9,7 +9,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 ```{r LIBRARIES}
 
 library(igraph)
@@ -19,17 +18,16 @@ library(igraph)
 ```{r DATA}
 
 # First session
-#adj_matrix = as.matrix(read.csv("interaction_matrix.csv", sep =";", header = FALSE)) #(not covered in the report)
+#adj_matrix = as.matrix(read.csv("DATA/social_network/interaction_matrix.csv", sep =";", header = FALSE)) #(not covered in the report)
 
 # remove unidentified individuals 
 #adj_matrix_ID = adj_matrix[-9,-9] # (not covered in the report)
 
 # Second session
-adj_matrix2 = as.matrix(read.csv("interaction_matrix2.csv", sep =";", header = FALSE))
+adj_matrix2 = as.matrix(read.csv("DATA/social_network/interaction_matrix2.csv", sep =";", header = FALSE))
 
 # adj_matrix_all = adj_matrix_ID + adj_matrix2 # (not covered in the report)
 ```
-
 
 ```{r graph of interactions}
 
@@ -52,6 +50,7 @@ layout <-layout_in_circle(g)
 plot(g, layout = layout, main = "", edge.width = E(g)$weight*0.6)# E(g) containes the attributes of the edges such as the weight which is the number of interactions between the same pair of individuals. We multiply the weight by 0.6 to increase the contrast between the width of the lines.
 
 ```
+
 ```{r Structural properties}
 
 #binary degrees # how many conspecifics does an individual interact with 
