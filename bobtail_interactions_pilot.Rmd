@@ -37,7 +37,7 @@ g <- make_empty_graph()
 g <- graph_from_adjacency_matrix(
     adj_matrix2, # vector for the adjacency matrix 
     mode = c("undirected"), # our social network is undirected (interaction of A->B is the same as B->A)
-    weighted = TRUE, # our social network is weighted (strength of association in pairs is weighted by the                          number of their interaction)
+    weighted = TRUE, # our social network is weighted (strength of association in pairs is weighted by the number of their interaction)
     diag = F, # we do not include the diagonal of the matrix as individuals do not interact with themselves
     add.colnames = NULL, #use the column names to name the vertices (nodes corresponding the the individuals)
     add.rownames = FALSE # do not use the raw names to name the vertices
