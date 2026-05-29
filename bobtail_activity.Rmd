@@ -18,48 +18,63 @@ library(lubridate)
 
 ```{r DATA}
 
-data_bob = read.csv("metadata2.csv", sep =";", header = TRUE)
+data_bob = read.csv("metadata2.csv", sep =";", header = TRUE) # dataset of the metadate collected from the camera traps. 
 
+# create a column with "1" everywhere to be able to sum the lines 
+data_bob$count = 1 
 
 ```
 
-```{r sum of observations per day}
+```{r proportion of bobtail occurence}
 
-# create a column with "1" everywhere to be able to sum le lines 
-data_bob$count = 1 
+# proportion of bobtail occurences accross all pictures 
+total_pic = 2107 # total number of pictures taken by the camera trap
+unique_pic = length(levels(as.factor(data_bob$picture))) # total pictures of bobtails 
+
+unique_pic/total_pic*100 # proportion of bobtail occurences
+```
+
+```{r proportion of bobtails identified}
+
+ID = length(data_bob[data_bob$individual!="no_ID",]$individual) # proportion identified bobtails
+
+tot_bob = length(data_bob$individual) # total number of bobtail occurrences 
+
+ID/tot_bob*100 # proportion of bobtails identified
+
+```
+
+
+
+```{r sum of observations per day: NOT COVERED IN THE REPORT}
 
 # plot
 ggplot(data_bob, aes(x = date, y = count)) +
   geom_col()
+
 ```
 
 ```{r sum of observations per hour}
 
-# create a column with "1" everywhere to be able to sum le lines 
-data_bob$count = 1 
+# extract the hour of occurrence 
+data_bob$time = as.POSIXct(data_bob$time, format = "%H:%M") # change in data_time object
+data_bob$hour = hour(data_bob$time)# extract the hour in a different column
 
-
-data_bob$time = as.POSIXct(data_bob$time, format = "%H:%M")
-data_bob$hour = hour(data_bob$time)
-
-# plot  
+# plot for every 15 minutes NOT COVERED IN THE REPORT 
 ggplot(data_bob, aes(x = time, y = count)) +
   geom_col() +
   xlab("Time of trapping") +
   ylab("Number of bobtails on all pictures")
 
 
-# plot  
+# plot for every hour 
 ggplot(data_bob, aes(x = factor(hour), y = count)) +
   geom_col() +
   xlab("Hour of trapping") +
   ylab("Number of bobtails on all pictures")
 ```
 
-```{r sum of observations across camera temperatures}
-
-# create a column with "1" everywhere to be able to sum le lines 
-data_bob$count = 1 
+```{r sum of observations across camera temperatures: NOT COVERED IN THE REPORT}
 
 # plot  
 ggplot(data_bob, aes(x = temperature, y = count)) +
@@ -72,38 +87,31 @@ ggplot(data_bob, aes(x = temperature, y = count)) +
 
 ```{r sum of observations per camera and individual}
 
-# create a column with "1" everywhere to be able to sum le lines 
-data_bob$count = 1 
-
 # plot  
 ggplot(data_bob, aes(x = camera, y = count, fill = individual)) +
   geom_col() +
   xlab("Camera") +
   ylab("Number of bobtails on all pictures")+
-  scale_fill_brewer(palette="BrBG")
+  scale_fill_brewer(palette="BrBG")+ # colorblind friendly palette
+   labs(fill='Individual') # add a caps to the beginning of the label
 
 ```
 
-```{r usm of observation per individual and camera}
-
-# create a column with "1" everywhere to be able to sum le lines 
-data_bob$count = 1 
+```{r sum of observation per individual and camera}
 
 ggplot(data_bob, aes(x = individual, y = count, fill = camera)) +
   geom_col() +
   xlab("Individual") +
   ylab("Number of bobtails on all pictures")+
-  scale_fill_brewer(palette="BrBG")
+  scale_fill_brewer(palette="BrBG")+ # colorblind friendly palette
+   labs(fill='Camera') # add a caps to the beginning of the label
 ```
-```{r sum of observations per max air temperature each day}
-
-# create a column with "1" everywhere to be able to sum le lines 
-data_bob$count = 1 
+```{r sum of observations per max air temperature each day: NOT COVERED IN THE REPORT}
 
 # plot 
-ggplot(data_bob, aes(x = max_temp_atmo, y = count)) +
-  geom_col() +
-  xlab("Max air temperatures each day") +
-  ylab("Number of bobtails on all pictures")
+#ggplot(data_bob, aes(x = max_temp_atmo, y = count)) +
+ # geom_col() +
+  #xlab("Max air temperatures each day") +
+  #ylab("Number of bobtails on all pictures")
 
 ```

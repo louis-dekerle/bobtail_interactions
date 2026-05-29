@@ -18,16 +18,16 @@ library(igraph)
 
 ```{r DATA}
 
-# First session 
-adj_matrix = as.matrix(read.csv("interaction_matrix.csv", sep =";", header = FALSE))
+# First session
+#adj_matrix = as.matrix(read.csv("interaction_matrix.csv", sep =";", header = FALSE)) #(not covered in the report)
 
 # remove unidentified individuals 
-adj_matrix_ID = adj_matrix[-9,-9]
+#adj_matrix_ID = adj_matrix[-9,-9] # (not covered in the report)
 
 # Second session
 adj_matrix2 = as.matrix(read.csv("interaction_matrix2.csv", sep =";", header = FALSE))
 
-adj_matrix_all = adj_matrix_ID + adj_matrix2
+# adj_matrix_all = adj_matrix_ID + adj_matrix2 # (not covered in the report)
 ```
 
 
@@ -35,30 +35,30 @@ adj_matrix_all = adj_matrix_ID + adj_matrix2
 
 g <- make_empty_graph()
 
-#create the graph
+# create the graph
 g <- graph_from_adjacency_matrix(
-    adj_matrix_all,
-    mode = c("undirected"),
-    weighted = TRUE,
-    diag = F,
-    add.colnames = NULL,
-    add.rownames = FALSE
+    adj_matrix2, # vector for the adjacency matrix 
+    mode = c("undirected"), # our social network is undirected (interaction of A->B is the same as B->A)
+    weighted = TRUE, # our social network is weighted (strength of association in pairs is weighted by the                          number of their interaction)
+    diag = F, # we do not include the diagonal of the matrix as individuals do not interact with themselves
+    add.colnames = NULL, #use the column names to name the vertices (nodes corresponding the the individuals)
+    add.rownames = FALSE # do not use the raw names to name the vertices
 )
 
-# dispose the vertex in cicrle 
+# arrange the vertex in circle 
 layout <-layout_in_circle(g)
 
 # plot 
-plot(g, layout = layout, main = "", edge.width = E(g)$weight*0.6)# E(g) containes the attributes of the edges. We multiply the weight by 0.6 to increase the contrast between the width of the lines
+plot(g, layout = layout, main = "", edge.width = E(g)$weight*0.6)# E(g) containes the attributes of the edges such as the weight which is the number of interactions between the same pair of individuals. We multiply the weight by 0.6 to increase the contrast between the width of the lines.
 
 ```
-```{r Structural properties without non ID}
+```{r Structural properties}
 
 #binary degrees # how many conspecifics does an individual interact with 
-degree(g)
+degree(g) # maximum binary degree for every individual => they all interact with each other at least once 
 
 # densities 
-edge_density(g, loops = FALSE) # existing edges / possible edges
+edge_density(g, loops = FALSE) # existing edges / possible edges => they all interact with each other at least once 
 
 #weighted degrees # total interactions
 strength(
